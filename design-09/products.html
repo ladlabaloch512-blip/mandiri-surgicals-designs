@@ -6,7 +6,15 @@
 <style>
 :root{--bg:#f7f7f4;--surface:#ffffff;--ink:#1c2b3a;--muted:#68788a;--accent:#31597e;--accent2:#31597e2;--header:#f7f7f4;--radius:6px;--chip:#e9edf1}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden}
+.grid5>*,.grid3>*,.grid2>*,.why-grid>*,.steps>*,footer .cols>*{min-width:0}
+h1,h2,h3,h4,p,td,a,span{overflow-wrap:break-word}
+table.spec td{overflow-wrap:anywhere}
+.ctarow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.gallery img.main{transition:transform .3s ease,opacity .3s ease}
+.gallery img.main.gout{transform:translateX(-36px);opacity:0}
+.gallery img.main.gin{animation:gin .35s ease}
+@keyframes gin{from{transform:translateX(36px);opacity:0}}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -32,7 +40,10 @@ h1,h2,h3{font-family:'Archivo',sans-serif;line-height:1.15;font-weight:800;lette
 /* header */
 header{position:sticky;top:0;z-index:60;background:var(--header);border-bottom:1px solid rgba(130,150,170,.25)}
 .hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-.logo img{height:46px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo img{height:36px;width:auto}
+.logotitle{font-weight:800;letter-spacing:.13em;font-size:15px;line-height:1.2;color:var(--ink);white-space:nowrap}
+.logotitle small{display:block;font-size:10px;letter-spacing:.32em;color:var(--muted);font-weight:700}
 
 nav.main{display:flex;gap:26px;font-weight:600;font-size:15px}
 nav.main a{position:relative;padding:4px 0}
@@ -55,7 +66,7 @@ body.navopen #burger span:nth-child(3){transform:translateY(-7.5px) rotate(-45de
 body.navopen #scrim{opacity:1;visibility:visible}
 #sidebar{position:fixed;top:0;left:0;height:100dvh;width:min(320px,84vw);background:var(--surface);z-index:80;transform:translateX(-105%);transition:transform .5s cubic-bezier(.7,0,.2,1);padding:22px;display:flex;flex-direction:column;gap:6px;box-shadow:20px 0 50px rgba(0,0,0,.25)}
 body.navopen #sidebar{transform:translateX(0)}
-#sidebar .logo img{height:44px}
+#sidebar .logo img{height:32px}
 #sidebar a{padding:13px 10px;font-weight:700;font-size:17px;border-bottom:1px solid rgba(130,150,170,.2);display:flex;justify-content:space-between;align-items:center}
 #sidebar a small{color:var(--accent);font-weight:800}
 /* hero */
@@ -130,12 +141,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);border-c
 .btn.loading::before{content:"";width:16px;height:16px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 /* cart drawer */
-#drawer{position:fixed;top:0;right:0;height:100dvh;width:min(400px,92vw);background:var(--surface);z-index:90;transform:translateX(105%);transition:transform .5s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column;box-shadow:-20px 0 50px rgba(0,0,0,.25)}
+#drawer{position:fixed;top:0;right:0;height:100dvh;width:min(400px,92vw);background:var(--surface);z-index:90;transform:translateX(105%);transition:transform .5s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;box-shadow:-20px 0 50px rgba(0,0,0,.25)}
 body.cartopen #drawer{transform:translateX(0)}
 #dscrim{position:fixed;inset:0;background:rgba(5,12,20,.5);opacity:0;visibility:hidden;transition:.4s;z-index:85}
 body.cartopen #dscrim{opacity:1;visibility:visible}
-#drawer .dh{padding:20px;border-bottom:1px solid rgba(130,150,170,.3);display:flex;justify-content:space-between;align-items:center}
-#drawer .items{flex:1;overflow:auto;padding:14px 20px;display:flex;flex-direction:column;gap:12px}
+#drawer .dh{padding:20px;border-bottom:1px solid rgba(130,150,170,.3);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--surface);z-index:3}
+#drawer .items{flex:0 1 auto;overflow:visible;padding:14px 20px;display:flex;flex-direction:column;gap:12px}
 .citem{display:flex;gap:12px;align-items:center;background:var(--bg);border-radius:12px;padding:10px}
 .citem img{width:52px;height:52px;object-fit:cover;border-radius:8px}
 .citem h4{font-size:14px}
@@ -158,12 +169,18 @@ footer{background:var(--header);border-top:1px solid rgba(130,150,170,.25);paddi
 footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:26px}
 footer h4{margin-bottom:12px;font-size:15px}
 footer a,footer p{color:var(--muted);font-size:14px;display:block;margin-bottom:7px}
-footer .logo img{height:44px;margin-bottom:12px}
+footer .logo{margin-bottom:12px}
+footer .logo img{height:36px}
 footer .base{border-top:1px solid rgba(130,150,170,.25);margin-top:30px;padding-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 /* reveal (hide-first per explicit order; js class gates hiding, failsafe reveals all) */
 .js .rv{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.6,.2,1)}
 .js .rv.in{opacity:1;transform:none}
-.pagehead{padding:52px 0 8px}
+.pagehead{padding:52px 20px 8px}
+.grid3,.grid5{align-items:start}
+.certcard b{display:block;font-size:14.5px;line-height:1.35;margin:2px 0 6px}
+.certcard p{line-height:1.55}
+.hero-photo img{width:100%;height:340px;object-fit:cover;display:block}
+.hero-below{padding:30px 20px 44px}
 .pagehead h1{font-size:clamp(30px,4vw,44px);margin:12px 0 10px}
 .pagehead p{color:var(--muted);max-width:640px}
 .prod{display:flex;flex-direction:column}
@@ -175,88 +192,132 @@ footer .base{border-top:1px solid rgba(130,150,170,.25);margin-top:30px;padding-
 .gallery .thumbs img{width:76px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.65;border:2px solid transparent}
 .gallery .thumbs img.sel{opacity:1;border-color:var(--accent)}
 .price-note{background:var(--chip);border-radius:var(--radius);padding:16px 18px;font-weight:700;margin:18px 0}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+#coForm{display:none;padding:18px 20px;border-top:1px solid rgba(130,150,170,.3)}
+#coForm.open{display:block;animation:pop .4s}
+#coForm h4{margin-bottom:4px}
+#coForm p{color:var(--muted);font-size:13px}
 @media(max-width:1020px){.grid5{grid-template-columns:repeat(3,1fr)}.why-grid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:820px){nav.main{display:none}#burger{display:flex}.hero-grid{grid-template-columns:1fr;padding:40px 0}.grid3,.grid2,.detail{grid-template-columns:1fr}footer .cols{grid-template-columns:1fr 1fr}.hd .btn{display:none}}
-@media(max-width:560px){.grid5{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}footer .cols{grid-template-columns:1fr}}
+@media(max-width:820px){nav.main{display:none}#burger{display:flex}
+.hero-grid{grid-template-columns:1fr;padding:34px 0 30px;gap:24px}
+.hero h1{font-size:clamp(27px,7.6vw,40px)}
+.hero p.lead{font-size:16px}
+.hero-panel{padding:22px}
+.full-photo .shade{padding:38px 0}
+section{padding:42px 0}
+.pagehead{padding:36px 20px 4px}
+.hero-photo img{height:230px}
+.hero-below{padding:24px 20px 36px}
+.grid3{grid-template-columns:repeat(2,1fr);gap:12px}
+.grid2,.detail{grid-template-columns:1fr}
+.card img{height:112px}
+.card .cb{padding:12px}
+.card h3{font-size:15.5px}
+.card p{font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hero .decor{display:none}
+.hd .btn{display:none}
+.gallery img.main{height:250px}
+footer .cols{grid-template-columns:1fr 1fr;gap:20px}
+footer .cols>div:first-child{grid-column:1/-1}
+footer .cols>div:last-child{grid-column:1/-1}}
+@media(max-width:560px){.grid5{grid-template-columns:repeat(2,1fr);gap:10px}.steps{grid-template-columns:1fr}
+.why-grid{grid-template-columns:repeat(2,1fr);gap:10px}.why{padding:15px}
+.certstrip span{font-size:12px;padding:7px 11px}
+.btnrow{gap:10px}
+.btnrow .btn{padding:8px 12px;font-size:13px}
+.certcard{padding:18px}
+.certcard h3{font-size:16px}
+.certcard b{font-size:13.5px}
+.certcard p{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;font-size:12.5px}
+.why p{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.ctarow .btn{flex:1 1 200px;justify-content:center;max-width:320px}}
 </style></head><body>
-<div id="splash"><img src="../assets/logo_black.png" alt="Mandiri Surgicals"><div class="bar"><i></i></div><p>MANDIRI SURGICALS</p></div>
+<div id="splash"><img src="../assets/logo_ms_black.png" alt="Mandiri Surgicals" style="height:56px;width:auto"><div class="bar"><i></i></div><p>MANDIRI SURGICALS</p></div>
 <header><div class="wrap hd">
-<a class="logo" href="index.html"><img src="../assets/logo_black.png" alt="Mandiri Surgicals"></a>
+<a class="logo" href="index.html"><img src="../assets/logo_ms_black.png" alt="Mandiri Surgicals"><span class="logotitle">MANDIRI<small>SURGICALS</small></span></a>
 <nav class="main"><a href="index.html" class="">Home</a><a href="about.html" class="">About Us</a><a href="products.html" class="act">Products</a><a href="quality.html" class="">Quality</a><a href="contact.html" class="">Contact</a></nav>
 <div class="hd-right"><a class="btn small" href="contact.html">Request a Quote</a>
 <button id="cartBtn" aria-label="Enquiry list"><svg viewBox="0 0 24 24"><path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7.2 14.6l.1.1h9.9a2 2 0 0 0 2-1.7L21 6H6.2L5.3 3.6A1 1 0 0 0 4.4 3H2v2h1.7l3.5 9.6zM8 8h11l-1.1 4.6H8.6L8 8z"/></svg><span id="cartCount">0</span></button>
 <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button></div>
 </div></header>
 <div id="scrim"></div>
-<aside id="sidebar"><a class="logo" href="index.html" style="border:0;padding:0 10px 14px"><img src="../assets/logo_black.png" alt="Mandiri Surgicals"></a><a href="index.html">Home<small>01</small></a><a href="about.html">About Us<small>02</small></a><a href="products.html">Products<small>03</small></a><a href="quality.html">Quality<small>04</small></a><a href="contact.html">Contact<small>05</small></a>
+<aside id="sidebar"><a class="logo" href="index.html" style="border:0;padding:0 10px 14px"><img src="../assets/logo_ms_black.png" alt="Mandiri Surgicals"><span class="logotitle">MANDIRI<small>SURGICALS</small></span></a><a href="index.html">Home<small>01</small></a><a href="about.html">About Us<small>02</small></a><a href="products.html">Products<small>03</small></a><a href="quality.html">Quality<small>04</small></a><a href="contact.html">Contact<small>05</small></a>
 <a href="contact.html" style="color:var(--accent)">Request a Quote<small>&rarr;</small></a>
 <p style="color:var(--muted);font-size:13px;padding:14px 10px">Malky Kalan Road, Rattian Syedan, Near Imambargah Qaser-e-Abbas, Sialkot, Pakistan</p></aside>
 <main><div class="wrap pagehead rv"><span class="eyebrow">Products</span><h1>Our Product Ranges</h1>
 <p>Sample instruments from each certified range. Select items and add them to your enquiry list; prices are given on quotation. <a href="product.html" style="color:var(--accent);font-weight:700">View a sample product detail page &rarr;</a></p></div>
 <section style="padding-top:6px"><div class="wrap"><div id="cat-general" style="padding-top:36px"><div class="sec-head rv"><span class="eyebrow">General Surgery</span><h2>General Surgery Instruments</h2><p>Forceps, scissors, needle holders, retractors and clamps for everyday theatre work.</p></div>
-        <div class="grid3" data-cascade><article class="card rowcard prod rv"><img src="../assets/prod1.jpg" alt="Tissue Forceps">
-        <div class="cb"><span class="num">MS-GS-101</span><h3>Tissue Forceps</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Tissue Forceps" data-code="MS-GS-101" data-img="../assets/prod1.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod2.jpg" alt="Surgical Scissors">
-        <div class="cb"><span class="num">MS-GS-102</span><h3>Surgical Scissors</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Surgical Scissors" data-code="MS-GS-102" data-img="../assets/prod2.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod3.jpg" alt="Needle Holder">
-        <div class="cb"><span class="num">MS-GS-103</span><h3>Needle Holder</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Needle Holder" data-code="MS-GS-103" data-img="../assets/prod3.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod4.jpg" alt="Retractor">
-        <div class="cb"><span class="num">MS-GS-104</span><h3>Retractor</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Retractor" data-code="MS-GS-104" data-img="../assets/prod4.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod5.jpg" alt="Artery Clamp">
-        <div class="cb"><span class="num">MS-GS-105</span><h3>Artery Clamp</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Artery Clamp" data-code="MS-GS-105" data-img="../assets/prod5.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod6.jpg" alt="Scalpel Handle">
-        <div class="cb"><span class="num">MS-GS-106</span><h3>Scalpel Handle</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Scalpel Handle" data-code="MS-GS-106" data-img="../assets/prod6.jpg" style="margin-top:12px">Add to Enquiry</button></div></article></div></div><div id="cat-dental" style="padding-top:36px"><div class="sec-head rv"><span class="eyebrow">Dental</span><h2>Dental Instruments</h2><p>Mirrors, probes, elevators and extraction forceps for dental practice.</p></div>
-        <div class="grid3" data-cascade><article class="card rowcard prod rv"><img src="../assets/dental_consult.jpg" alt="Dental Mirror">
-        <div class="cb"><span class="num">MS-DN-201</span><h3>Dental Mirror</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Dental Mirror" data-code="MS-DN-201" data-img="../assets/dental_consult.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/dental_xray.jpg" alt="Dental Probe">
-        <div class="cb"><span class="num">MS-DN-202</span><h3>Dental Probe</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Dental Probe" data-code="MS-DN-202" data-img="../assets/dental_xray.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/dental_clinic.jpg" alt="Extraction Forceps">
-        <div class="cb"><span class="num">MS-DN-203</span><h3>Extraction Forceps</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Extraction Forceps" data-code="MS-DN-203" data-img="../assets/dental_clinic.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod2.jpg" alt="Dental Elevator">
-        <div class="cb"><span class="num">MS-DN-204</span><h3>Dental Elevator</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Dental Elevator" data-code="MS-DN-204" data-img="../assets/prod2.jpg" style="margin-top:12px">Add to Enquiry</button></div></article></div></div><div id="cat-liposuction" style="padding-top:36px"><div class="sec-head rv"><span class="eyebrow">Liposuction</span><h2>Liposuction Instruments</h2><p>Cannulas, infiltration tools and suction accessories for body contouring.</p></div>
-        <div class="grid3" data-cascade><article class="card rowcard prod rv"><img src="../assets/prod3.jpg" alt="Liposuction Cannula">
-        <div class="cb"><span class="num">MS-LP-301</span><h3>Liposuction Cannula</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Liposuction Cannula" data-code="MS-LP-301" data-img="../assets/prod3.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod5.jpg" alt="Infiltration Cannula">
-        <div class="cb"><span class="num">MS-LP-302</span><h3>Infiltration Cannula</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Infiltration Cannula" data-code="MS-LP-302" data-img="../assets/prod5.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/tools_blue.jpg" alt="Suction Handle">
-        <div class="cb"><span class="num">MS-LP-303</span><h3>Suction Handle</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Suction Handle" data-code="MS-LP-303" data-img="../assets/tools_blue.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod6.jpg" alt="Connector Set">
-        <div class="cb"><span class="num">MS-LP-304</span><h3>Connector Set</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Connector Set" data-code="MS-LP-304" data-img="../assets/prod6.jpg" style="margin-top:12px">Add to Enquiry</button></div></article></div></div><div id="cat-electro" style="padding-top:36px"><div class="sec-head rv"><span class="eyebrow">Electro Surgical</span><h2>Electro Surgical Instruments</h2><p>Electrodes, pencils and bipolar forceps for electrosurgery units.</p></div>
-        <div class="grid3" data-cascade><article class="card rowcard prod rv"><img src="../assets/tools_white.jpg" alt="Electrode Pencil">
-        <div class="cb"><span class="num">MS-ES-401</span><h3>Electrode Pencil</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Electrode Pencil" data-code="MS-ES-401" data-img="../assets/tools_white.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod4.jpg" alt="Bipolar Forceps">
-        <div class="cb"><span class="num">MS-ES-402</span><h3>Bipolar Forceps</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Bipolar Forceps" data-code="MS-ES-402" data-img="../assets/prod4.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod1.jpg" alt="Electrode Tip Set">
-        <div class="cb"><span class="num">MS-ES-403</span><h3>Electrode Tip Set</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Electrode Tip Set" data-code="MS-ES-403" data-img="../assets/prod1.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod6.jpg" alt="Grounding Cable">
-        <div class="cb"><span class="num">MS-ES-404</span><h3>Grounding Cable</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Grounding Cable" data-code="MS-ES-404" data-img="../assets/prod6.jpg" style="margin-top:12px">Add to Enquiry</button></div></article></div></div><div id="cat-plastic" style="padding-top:36px"><div class="sec-head rv"><span class="eyebrow">Plastic Surgery</span><h2>Plastic Surgery Instruments</h2><p>Fine and micro instruments for reconstructive and aesthetic procedures.</p></div>
-        <div class="grid3" data-cascade><article class="card rowcard prod rv"><img src="../assets/prod2.jpg" alt="Skin Graft Knife">
-        <div class="cb"><span class="num">MS-PS-501</span><h3>Skin Graft Knife</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Skin Graft Knife" data-code="MS-PS-501" data-img="../assets/prod2.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod5.jpg" alt="Micro Scissors">
-        <div class="cb"><span class="num">MS-PS-502</span><h3>Micro Scissors</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Micro Scissors" data-code="MS-PS-502" data-img="../assets/prod5.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod3.jpg" alt="Adson Forceps">
-        <div class="cb"><span class="num">MS-PS-503</span><h3>Adson Forceps</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Adson Forceps" data-code="MS-PS-503" data-img="../assets/prod3.jpg" style="margin-top:12px">Add to Enquiry</button></div></article><article class="card rowcard prod rv"><img src="../assets/prod1.jpg" alt="Surgical Rasp">
-        <div class="cb"><span class="num">MS-PS-504</span><h3>Surgical Rasp</h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
-        <button class="btn small add-btn" data-name="Surgical Rasp" data-code="MS-PS-504" data-img="../assets/prod1.jpg" style="margin-top:12px">Add to Enquiry</button></div></article></div></div>
+        <div class="grid3" data-cascade><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod1.jpg" alt="Tissue Forceps"></a>
+        <div class="cb"><span class="num">MS-GS-101</span><h3><a href="product.html">Tissue Forceps</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Tissue Forceps" data-code="MS-GS-101" data-img="../assets/prod1.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod2.jpg" alt="Surgical Scissors"></a>
+        <div class="cb"><span class="num">MS-GS-102</span><h3><a href="product.html">Surgical Scissors</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Surgical Scissors" data-code="MS-GS-102" data-img="../assets/prod2.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod3.jpg" alt="Needle Holder"></a>
+        <div class="cb"><span class="num">MS-GS-103</span><h3><a href="product.html">Needle Holder</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Needle Holder" data-code="MS-GS-103" data-img="../assets/prod3.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod4.jpg" alt="Retractor"></a>
+        <div class="cb"><span class="num">MS-GS-104</span><h3><a href="product.html">Retractor</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Retractor" data-code="MS-GS-104" data-img="../assets/prod4.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod5.jpg" alt="Artery Clamp"></a>
+        <div class="cb"><span class="num">MS-GS-105</span><h3><a href="product.html">Artery Clamp</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Artery Clamp" data-code="MS-GS-105" data-img="../assets/prod5.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod6.jpg" alt="Scalpel Handle"></a>
+        <div class="cb"><span class="num">MS-GS-106</span><h3><a href="product.html">Scalpel Handle</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Scalpel Handle" data-code="MS-GS-106" data-img="../assets/prod6.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article></div></div><div id="cat-dental" style="padding-top:36px"><div class="sec-head rv"><span class="eyebrow">Dental</span><h2>Dental Instruments</h2><p>Mirrors, probes, elevators and extraction forceps for dental practice.</p></div>
+        <div class="grid3" data-cascade><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/dental_consult.jpg" alt="Dental Mirror"></a>
+        <div class="cb"><span class="num">MS-DN-201</span><h3><a href="product.html">Dental Mirror</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Dental Mirror" data-code="MS-DN-201" data-img="../assets/dental_consult.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/dental_xray.jpg" alt="Dental Probe"></a>
+        <div class="cb"><span class="num">MS-DN-202</span><h3><a href="product.html">Dental Probe</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Dental Probe" data-code="MS-DN-202" data-img="../assets/dental_xray.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/dental_clinic.jpg" alt="Extraction Forceps"></a>
+        <div class="cb"><span class="num">MS-DN-203</span><h3><a href="product.html">Extraction Forceps</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Extraction Forceps" data-code="MS-DN-203" data-img="../assets/dental_clinic.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod2.jpg" alt="Dental Elevator"></a>
+        <div class="cb"><span class="num">MS-DN-204</span><h3><a href="product.html">Dental Elevator</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Dental Elevator" data-code="MS-DN-204" data-img="../assets/prod2.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article></div></div><div id="cat-liposuction" style="padding-top:36px"><div class="sec-head rv"><span class="eyebrow">Liposuction</span><h2>Liposuction Instruments</h2><p>Cannulas, infiltration tools and suction accessories for body contouring.</p></div>
+        <div class="grid3" data-cascade><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod3.jpg" alt="Liposuction Cannula"></a>
+        <div class="cb"><span class="num">MS-LP-301</span><h3><a href="product.html">Liposuction Cannula</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Liposuction Cannula" data-code="MS-LP-301" data-img="../assets/prod3.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod5.jpg" alt="Infiltration Cannula"></a>
+        <div class="cb"><span class="num">MS-LP-302</span><h3><a href="product.html">Infiltration Cannula</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Infiltration Cannula" data-code="MS-LP-302" data-img="../assets/prod5.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/tools_blue.jpg" alt="Suction Handle"></a>
+        <div class="cb"><span class="num">MS-LP-303</span><h3><a href="product.html">Suction Handle</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Suction Handle" data-code="MS-LP-303" data-img="../assets/tools_blue.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod6.jpg" alt="Connector Set"></a>
+        <div class="cb"><span class="num">MS-LP-304</span><h3><a href="product.html">Connector Set</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Connector Set" data-code="MS-LP-304" data-img="../assets/prod6.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article></div></div><div id="cat-electro" style="padding-top:36px"><div class="sec-head rv"><span class="eyebrow">Electro Surgical</span><h2>Electro Surgical Instruments</h2><p>Electrodes, pencils and bipolar forceps for electrosurgery units.</p></div>
+        <div class="grid3" data-cascade><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/tools_white.jpg" alt="Electrode Pencil"></a>
+        <div class="cb"><span class="num">MS-ES-401</span><h3><a href="product.html">Electrode Pencil</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Electrode Pencil" data-code="MS-ES-401" data-img="../assets/tools_white.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod4.jpg" alt="Bipolar Forceps"></a>
+        <div class="cb"><span class="num">MS-ES-402</span><h3><a href="product.html">Bipolar Forceps</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Bipolar Forceps" data-code="MS-ES-402" data-img="../assets/prod4.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod1.jpg" alt="Electrode Tip Set"></a>
+        <div class="cb"><span class="num">MS-ES-403</span><h3><a href="product.html">Electrode Tip Set</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Electrode Tip Set" data-code="MS-ES-403" data-img="../assets/prod1.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod6.jpg" alt="Grounding Cable"></a>
+        <div class="cb"><span class="num">MS-ES-404</span><h3><a href="product.html">Grounding Cable</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Grounding Cable" data-code="MS-ES-404" data-img="../assets/prod6.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article></div></div><div id="cat-plastic" style="padding-top:36px"><div class="sec-head rv"><span class="eyebrow">Plastic Surgery</span><h2>Plastic Surgery Instruments</h2><p>Fine and micro instruments for reconstructive and aesthetic procedures.</p></div>
+        <div class="grid3" data-cascade><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod2.jpg" alt="Skin Graft Knife"></a>
+        <div class="cb"><span class="num">MS-PS-501</span><h3><a href="product.html">Skin Graft Knife</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Skin Graft Knife" data-code="MS-PS-501" data-img="../assets/prod2.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod5.jpg" alt="Micro Scissors"></a>
+        <div class="cb"><span class="num">MS-PS-502</span><h3><a href="product.html">Micro Scissors</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Micro Scissors" data-code="MS-PS-502" data-img="../assets/prod5.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod3.jpg" alt="Adson Forceps"></a>
+        <div class="cb"><span class="num">MS-PS-503</span><h3><a href="product.html">Adson Forceps</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Adson Forceps" data-code="MS-PS-503" data-img="../assets/prod3.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article><article class="card rowcard prod rv"><a href="product.html"><img src="../assets/prod1.jpg" alt="Surgical Rasp"></a>
+        <div class="cb"><span class="num">MS-PS-504</span><h3><a href="product.html">Surgical Rasp</a></h3><p>Price on quotation. Add to your enquiry list for a written quote.</p>
+        <div class="btnrow"><button class="btn small add-btn" data-name="Surgical Rasp" data-code="MS-PS-504" data-img="../assets/prod1.jpg">Add to Enquiry</button><a class="btn small ghost" href="product.html">Details</a></div></div></article></div></div>
 <div class="price-note rv">Prices are given on quotation only. Use the enquiry list (cart icon, top right) to collect items, then place an enquiry order.</div></div></section></main>
 <footer><div class="wrap"><div class="cols">
-<div><a class="logo" href="index.html"><img src="../assets/logo_black.png" alt="Mandiri Surgicals"></a>
+<div><a class="logo" href="index.html"><img src="../assets/logo_ms_black.png" alt="Mandiri Surgicals"><span class="logotitle">MANDIRI<small>SURGICALS</small></span></a>
 <p>Manufacturer and exporter of surgical instruments from Sialkot, Pakistan.</p>
 <div class="certstrip"><span>ISO 9001:2015</span><span>ISO 13485:2016</span><span>CE Class I</span></div></div>
 <div><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About Us</a><a href="products.html">Products</a><a href="quality.html">Quality</a><a href="contact.html">Contact</a></div>
 <div><h4>Product Ranges</h4><a href="products.html">General Surgery</a><a href="products.html">Dental</a><a href="products.html">Liposuction</a><a href="products.html">Electro Surgical</a><a href="products.html">Plastic Surgery</a></div>
 <div><h4>Contact</h4><p>Malky Kalan Road, Rattian Syedan, Near Imambargah Qaser-e-Abbas, Sialkot, Pakistan</p><p>Phone: to be added on confirmation</p><p>Email: to be added on confirmation</p><p>Prices are given on quotation only.</p></div>
-</div><div class="base"><span>&copy; 2026 Mandiri Surgicals. All rights reserved.</span><span>Design 9 - Editorial Index - Demo by ABiz Global Services</span></div></div></footer>
+</div><div class="base"><span>&copy; 2026 Mandiri Surgicals. All rights reserved.</span><span>Design 9 - Editorial Index - Demo by BIMM Global Services</span></div></div></footer>
 <div id="dscrim"></div>
 <aside id="drawer"><div class="dh"><h3>Enquiry List</h3><button id="drawerClose" style="background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink)">&times;</button></div>
 <div class="items" id="drawerItems"></div>
 <div class="df"><p>Send this list as an enquiry. You will receive a written quotation for these items.</p>
-<button class="btn" id="placeOrder" style="width:100%;justify-content:center">Place Enquiry Order</button></div></aside>
+<button class="btn" id="placeOrder" style="width:100%;justify-content:center">Place Enquiry Order</button></div>
+<form id="coForm"><h4>Your Details</h4><p>So we can send your quotation to the right place.</p>
+<label>Full Name *</label><input required placeholder="Your name">
+<label>Email Address *</label><input type="email" required placeholder="you@company.com">
+<label>Phone / WhatsApp</label><input placeholder="+92 ...">
+<label>Company</label><input placeholder="Company name">
+<label>Note (optional)</label><textarea rows="2" placeholder="Quantities, delivery city, any question"></textarea>
+<button class="btn" id="coSend" type="submit" style="width:100%;justify-content:center;margin-top:14px">Send Enquiry</button>
+<button type="button" id="coBack" style="width:100%;background:none;border:0;color:var(--muted);margin-top:8px;cursor:pointer;font:inherit;font-size:13.5px">&larr; Back to list</button></form></aside>
 <div id="toast"></div>
 <div id="successOv"><div class="box"><svg class="checkmark" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26"/><path d="M19 31l8 8 15-17"/></svg><h3>Enquiry Sent</h3>
 <p style="color:var(--muted);margin:10px 0 18px">Thank you. Your enquiry has been received. A written quotation will be shared for the selected items.</p>
@@ -315,11 +376,16 @@ $$('.add-btn').forEach(function(btn){btn.addEventListener('click',function(){
 var cartBtn=$('#cartBtn'); if(cartBtn){cartBtn.addEventListener('click',function(){document.body.classList.add('cartopen')})}
 var dscrim=$('#dscrim'); if(dscrim){dscrim.addEventListener('click',function(){document.body.classList.remove('cartopen')})}
 var dclose=$('#drawerClose'); if(dclose){dclose.addEventListener('click',function(){document.body.classList.remove('cartopen')})}
-var orderBtn=$('#placeOrder'); if(orderBtn){orderBtn.addEventListener('click',function(){
+var orderBtn=$('#placeOrder'); var coForm=$('#coForm');
+if(orderBtn){orderBtn.addEventListener('click',function(){
  if(!cart.length){toast('Your enquiry list is empty'); return}
- orderBtn.classList.add('loading'); orderBtn.textContent='Sending enquiry...';
- setTimeout(function(){orderBtn.classList.remove('loading'); orderBtn.textContent='Place Enquiry Order';
+ orderBtn.closest('.df').style.display='none'; if(coForm){coForm.classList.add('open'); coForm.scrollIntoView({behavior:'smooth',block:'end'})} });}
+var coBack=$('#coBack'); if(coBack){coBack.addEventListener('click',function(){ if(coForm){coForm.classList.remove('open')} if(orderBtn){orderBtn.closest('.df').style.display=''} });}
+if(coForm){coForm.addEventListener('submit',function(e){e.preventDefault();
+ var sendBtn=$('#coSend'); if(sendBtn){sendBtn.classList.add('loading'); sendBtn.textContent='Sending enquiry...'}
+ setTimeout(function(){ if(sendBtn){sendBtn.classList.remove('loading'); sendBtn.textContent='Send Enquiry'}
   document.body.classList.remove('cartopen'); cart=[]; save(); render();
+  coForm.classList.remove('open'); if(orderBtn){orderBtn.closest('.df').style.display=''} coForm.reset();
   var ov=$('#successOv'); if(ov){ov.classList.add('show')} },1300); });}
 var okBtn=$('#successClose'); if(okBtn){okBtn.addEventListener('click',function(){$('#successOv').classList.remove('show')})}
 /* forms: contact + quote */
@@ -328,8 +394,16 @@ $$('form.anim-form').forEach(function(f){f.addEventListener('submit',function(e)
  setTimeout(function(){ if(btn){btn.classList.remove('loading'); btn.textContent='Send'}
   var ok=$('.form-ok',f); if(ok){ $$('.fields',f).forEach(function(x){x.style.display='none'}); ok.classList.add('show'); }
   toast('Message sent. Thank you.'); },1200); })});
-/* gallery */
-var main=$('#galMain'); $$('.thumbs img').forEach(function(t){t.addEventListener('click',function(){ if(main){main.src=t.src} $$('.thumbs img').forEach(function(x){x.classList.remove('sel')}); t.classList.add('sel') })});
+/* gallery: slide switch + swipe */
+var main=$('#galMain'); var thumbs=$$('.thumbs img'); var curIdx=0;
+function goTo(i){ if(!main||!thumbs.length)return; i=(i+thumbs.length)%thumbs.length; if(i===curIdx&&main.src===thumbs[i].src)return; curIdx=i;
+ var t=thumbs[i]; main.classList.add('gout');
+ setTimeout(function(){ main.src=t.src; main.classList.remove('gout'); main.classList.add('gin');
+  setTimeout(function(){main.classList.remove('gin')},360); },250);
+ thumbs.forEach(function(x){x.classList.remove('sel')}); t.classList.add('sel'); }
+thumbs.forEach(function(t,i){t.addEventListener('click',function(){goTo(i)})});
+if(main){ var sx=0; main.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX},{passive:true});
+ main.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>42){ goTo(curIdx+(dx<0?1:-1)) } },{passive:true}); }
 render();
 })();
 </script>
