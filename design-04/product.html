@@ -6,7 +6,15 @@
 <style>
 :root{--bg:#ffffff;--surface:#ffffff;--ink:#14181c;--muted:#6a737c;--accent:#14181c;--accent2:#14181c2;--header:#ffffff;--radius:2px;--chip:#f1f2f3}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden}
+.grid5>*,.grid3>*,.grid2>*,.why-grid>*,.steps>*,footer .cols>*{min-width:0}
+h1,h2,h3,h4,p,td,a,span{overflow-wrap:break-word}
+table.spec td{overflow-wrap:anywhere}
+.ctarow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.gallery img.main{transition:transform .3s ease,opacity .3s ease}
+.gallery img.main.gout{transform:translateX(-36px);opacity:0}
+.gallery img.main.gin{animation:gin .35s ease}
+@keyframes gin{from{transform:translateX(36px);opacity:0}}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -130,12 +138,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);border-c
 .btn.loading::before{content:"";width:16px;height:16px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 /* cart drawer */
-#drawer{position:fixed;top:0;right:0;height:100dvh;width:min(400px,92vw);background:var(--surface);z-index:90;transform:translateX(105%);transition:transform .5s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column;box-shadow:-20px 0 50px rgba(0,0,0,.25)}
+#drawer{position:fixed;top:0;right:0;height:100dvh;width:min(400px,92vw);background:var(--surface);z-index:90;transform:translateX(105%);transition:transform .5s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;box-shadow:-20px 0 50px rgba(0,0,0,.25)}
 body.cartopen #drawer{transform:translateX(0)}
 #dscrim{position:fixed;inset:0;background:rgba(5,12,20,.5);opacity:0;visibility:hidden;transition:.4s;z-index:85}
 body.cartopen #dscrim{opacity:1;visibility:visible}
-#drawer .dh{padding:20px;border-bottom:1px solid rgba(130,150,170,.3);display:flex;justify-content:space-between;align-items:center}
-#drawer .items{flex:1;overflow:auto;padding:14px 20px;display:flex;flex-direction:column;gap:12px}
+#drawer .dh{padding:20px;border-bottom:1px solid rgba(130,150,170,.3);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--surface);z-index:3}
+#drawer .items{flex:0 1 auto;overflow:visible;padding:14px 20px;display:flex;flex-direction:column;gap:12px}
 .citem{display:flex;gap:12px;align-items:center;background:var(--bg);border-radius:12px;padding:10px}
 .citem img{width:52px;height:52px;object-fit:cover;border-radius:8px}
 .citem h4{font-size:14px}
@@ -204,7 +212,13 @@ footer .cols>div:last-child{grid-column:1/-1}}
 @media(max-width:560px){.grid5{grid-template-columns:repeat(2,1fr);gap:10px}.steps{grid-template-columns:1fr}
 .why-grid{grid-template-columns:repeat(2,1fr);gap:10px}.why{padding:15px}
 .certstrip span{font-size:12px;padding:7px 11px}
-.btnrow .btn{padding:8px 12px;font-size:13px}}
+.btnrow{gap:10px}
+.btnrow .btn{padding:8px 12px;font-size:13px}
+.certcard{padding:18px}
+.certcard h3{font-size:17px}
+.certcard p{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.why p{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.ctarow .btn{flex:1 1 200px;justify-content:center;max-width:320px}}
 </style></head><body>
 <div id="splash"><img src="../assets/logo_black.png" alt="Mandiri Surgicals"><div class="bar"><i></i></div><p>MANDIRI SURGICALS</p></div>
 <header><div class="wrap hd">
@@ -338,8 +352,16 @@ $$('form.anim-form').forEach(function(f){f.addEventListener('submit',function(e)
  setTimeout(function(){ if(btn){btn.classList.remove('loading'); btn.textContent='Send'}
   var ok=$('.form-ok',f); if(ok){ $$('.fields',f).forEach(function(x){x.style.display='none'}); ok.classList.add('show'); }
   toast('Message sent. Thank you.'); },1200); })});
-/* gallery */
-var main=$('#galMain'); $$('.thumbs img').forEach(function(t){t.addEventListener('click',function(){ if(main){main.src=t.src} $$('.thumbs img').forEach(function(x){x.classList.remove('sel')}); t.classList.add('sel') })});
+/* gallery: slide switch + swipe */
+var main=$('#galMain'); var thumbs=$$('.thumbs img'); var curIdx=0;
+function goTo(i){ if(!main||!thumbs.length)return; i=(i+thumbs.length)%thumbs.length; if(i===curIdx&&main.src===thumbs[i].src)return; curIdx=i;
+ var t=thumbs[i]; main.classList.add('gout');
+ setTimeout(function(){ main.src=t.src; main.classList.remove('gout'); main.classList.add('gin');
+  setTimeout(function(){main.classList.remove('gin')},360); },250);
+ thumbs.forEach(function(x){x.classList.remove('sel')}); t.classList.add('sel'); }
+thumbs.forEach(function(t,i){t.addEventListener('click',function(){goTo(i)})});
+if(main){ var sx=0; main.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX},{passive:true});
+ main.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>42){ goTo(curIdx+(dx<0?1:-1)) } },{passive:true}); }
 render();
 })();
 </script>
