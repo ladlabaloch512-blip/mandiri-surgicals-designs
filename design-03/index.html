@@ -40,7 +40,10 @@ h1,h2,h3{font-family:'Inter',sans-serif;line-height:1.15;font-weight:800;letter-
 /* header */
 header{position:sticky;top:0;z-index:60;background:var(--header);border-bottom:1px solid rgba(130,150,170,.25)}
 .hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-.logo img{height:46px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo img{height:36px;width:auto}
+.logotitle{font-weight:800;letter-spacing:.13em;font-size:15px;line-height:1.2;color:var(--ink);white-space:nowrap}
+.logotitle small{display:block;font-size:10px;letter-spacing:.32em;color:var(--muted);font-weight:700}
 nav.main a,.hd .btn{color:#eaf2f9} #burger span{background:#eaf2f9} #cartBtn svg{fill:#12283f}
 nav.main{display:flex;gap:26px;font-weight:600;font-size:15px}
 nav.main a{position:relative;padding:4px 0}
@@ -63,7 +66,7 @@ body.navopen #burger span:nth-child(3){transform:translateY(-7.5px) rotate(-45de
 body.navopen #scrim{opacity:1;visibility:visible}
 #sidebar{position:fixed;top:0;left:0;height:100dvh;width:min(320px,84vw);background:var(--surface);z-index:80;transform:translateX(-105%);transition:transform .5s cubic-bezier(.7,0,.2,1);padding:22px;display:flex;flex-direction:column;gap:6px;box-shadow:20px 0 50px rgba(0,0,0,.25)}
 body.navopen #sidebar{transform:translateX(0)}
-#sidebar .logo img{height:44px}
+#sidebar .logo img{height:32px}
 #sidebar a{padding:13px 10px;font-weight:700;font-size:17px;border-bottom:1px solid rgba(130,150,170,.2);display:flex;justify-content:space-between;align-items:center}
 #sidebar a small{color:var(--accent);font-weight:800}
 /* hero */
@@ -166,12 +169,18 @@ footer{background:var(--header);border-top:1px solid rgba(130,150,170,.25);paddi
 footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:26px}
 footer h4{margin-bottom:12px;font-size:15px}
 footer a,footer p{color:var(--muted);font-size:14px;display:block;margin-bottom:7px}
-footer .logo img{height:44px;margin-bottom:12px}
+footer .logo{margin-bottom:12px}
+footer .logo img{height:36px}
 footer .base{border-top:1px solid rgba(130,150,170,.25);margin-top:30px;padding-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 /* reveal (hide-first per explicit order; js class gates hiding, failsafe reveals all) */
 .js .rv{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.6,.2,1)}
 .js .rv.in{opacity:1;transform:none}
-.pagehead{padding:52px 0 8px}
+.pagehead{padding:52px 20px 8px}
+.grid3,.grid5{align-items:start}
+.certcard b{display:block;font-size:14.5px;line-height:1.35;margin:2px 0 6px}
+.certcard p{line-height:1.55}
+.hero-photo img{width:100%;height:340px;object-fit:cover;display:block}
+.hero-below{padding:30px 20px 44px}
 .pagehead h1{font-size:clamp(30px,4vw,44px);margin:12px 0 10px}
 .pagehead p{color:var(--muted);max-width:640px}
 .prod{display:flex;flex-direction:column}
@@ -196,7 +205,9 @@ footer .base{border-top:1px solid rgba(130,150,170,.25);margin-top:30px;padding-
 .hero-panel{padding:22px}
 .full-photo .shade{padding:38px 0}
 section{padding:42px 0}
-.pagehead{padding:36px 0 4px}
+.pagehead{padding:36px 20px 4px}
+.hero-photo img{height:230px}
+.hero-below{padding:24px 20px 36px}
 .grid3{grid-template-columns:repeat(2,1fr);gap:12px}
 .grid2,.detail{grid-template-columns:1fr}
 .card img{height:112px}
@@ -215,21 +226,22 @@ footer .cols>div:last-child{grid-column:1/-1}}
 .btnrow{gap:10px}
 .btnrow .btn{padding:8px 12px;font-size:13px}
 .certcard{padding:18px}
-.certcard h3{font-size:17px}
-.certcard p{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.certcard h3{font-size:16px}
+.certcard b{font-size:13.5px}
+.certcard p{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;font-size:12.5px}
 .why p{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 .ctarow .btn{flex:1 1 200px;justify-content:center;max-width:320px}}
 </style></head><body>
-<div id="splash"><img src="../assets/logo_white.png" alt="Mandiri Surgicals"><div class="bar"><i></i></div><p>MANDIRI SURGICALS</p></div>
+<div id="splash"><img src="../assets/logo_ms_white.png" alt="Mandiri Surgicals" style="height:56px;width:auto"><div class="bar"><i></i></div><p>MANDIRI SURGICALS</p></div>
 <header><div class="wrap hd">
-<a class="logo" href="index.html"><img src="../assets/logo_white.png" alt="Mandiri Surgicals"></a>
+<a class="logo" href="index.html"><img src="../assets/logo_ms_white.png" alt="Mandiri Surgicals"><span class="logotitle">MANDIRI<small>SURGICALS</small></span></a>
 <nav class="main"><a href="index.html" class="act">Home</a><a href="about.html" class="">About Us</a><a href="products.html" class="">Products</a><a href="quality.html" class="">Quality</a><a href="contact.html" class="">Contact</a></nav>
 <div class="hd-right"><a class="btn small" href="contact.html">Request a Quote</a>
 <button id="cartBtn" aria-label="Enquiry list"><svg viewBox="0 0 24 24"><path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7.2 14.6l.1.1h9.9a2 2 0 0 0 2-1.7L21 6H6.2L5.3 3.6A1 1 0 0 0 4.4 3H2v2h1.7l3.5 9.6zM8 8h11l-1.1 4.6H8.6L8 8z"/></svg><span id="cartCount">0</span></button>
 <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button></div>
 </div></header>
 <div id="scrim"></div>
-<aside id="sidebar"><a class="logo" href="index.html" style="border:0;padding:0 10px 14px"><img src="../assets/logo_black.png" alt="Mandiri Surgicals"></a><a href="index.html">Home<small>01</small></a><a href="about.html">About Us<small>02</small></a><a href="products.html">Products<small>03</small></a><a href="quality.html">Quality<small>04</small></a><a href="contact.html">Contact<small>05</small></a>
+<aside id="sidebar"><a class="logo" href="index.html" style="border:0;padding:0 10px 14px"><img src="../assets/logo_ms_white.png" alt="Mandiri Surgicals"><span class="logotitle">MANDIRI<small>SURGICALS</small></span></a><a href="index.html">Home<small>01</small></a><a href="about.html">About Us<small>02</small></a><a href="products.html">Products<small>03</small></a><a href="quality.html">Quality<small>04</small></a><a href="contact.html">Contact<small>05</small></a>
 <a href="contact.html" style="color:var(--accent)">Request a Quote<small>&rarr;</small></a>
 <p style="color:var(--muted);font-size:13px;padding:14px 10px">Malky Kalan Road, Rattian Syedan, Near Imambargah Qaser-e-Abbas, Sialkot, Pakistan</p></aside>
 <main><section class="hero"><div class="wrap hero-grid"><div class="hero-panel rv" style="background:var(--accent2);color:#fff"><span class="eyebrow" style="background:rgba(255,255,255,.15);color:#fff">Mandiri Surgicals</span><h1 style="color:#fff">Precision Surgical Instruments, Made in Sialkot</h1><p class="lead" style="color:#cfe2f2">Manufacturer and exporter of surgical, dental and specialised instruments from Sialkot, Pakistan. Certified quality, prices on quotation.</p><div class="cta"><a class="btn" href="products.html">Explore Products</a><a class="btn ghost" href="contact.html">Request a Quote</a></div></div>
@@ -247,10 +259,10 @@ footer .cols>div:last-child{grid-column:1/-1}}
         <a class="btn small ghost" href="products.html#cat-plastic" style="margin-top:12px">View Range</a></div></article></div></div></section>
 <section style="background:var(--surface)"><div class="wrap"><div class="sec-head rv"><span class="eyebrow">Why Mandiri</span><h2>Why Buyers Choose Mandiri Surgicals</h2></div><div class="why-grid" data-cascade><div class="why rv"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8 1 5.4-4.9-2.6-4.9 2.6 1-5.4L4.1 7.7l5.4-.8z"/></svg><h3>Certified Quality System</h3><p>Production runs under ISO 9001:2015 and ISO 13485:2016 certified systems, with CE Class I conformity.</p></div><div class="why rv"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8 1 5.4-4.9-2.6-4.9 2.6 1-5.4L4.1 7.7l5.4-.8z"/></svg><h3>Made in Sialkot</h3><p>Manufactured in Sialkot, Pakistan, a city known worldwide for surgical instrument making.</p></div><div class="why rv"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8 1 5.4-4.9-2.6-4.9 2.6 1-5.4L4.1 7.7l5.4-.8z"/></svg><h3>Documents on Request</h3><p>Certificate copies and product documents are shared with buyers on request.</p></div><div class="why rv"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8 1 5.4-4.9-2.6-4.9 2.6 1-5.4L4.1 7.7l5.4-.8z"/></svg><h3>Prices on Quotation</h3><p>No catalogue prices. Every enquiry receives a written quotation for the exact items and quantities.</p></div></div></div></section>
 <section><div class="wrap"><div class="sec-head rv"><span class="eyebrow">How Ordering Works</span><h2>From Enquiry to Dispatch</h2></div><div class="steps" data-cascade><div class="step rv"><b>01</b><h3>Send Enquiry</h3><p>Add instruments to the enquiry list and send it from the contact page.</p></div><div class="step rv"><b>02</b><h3>Get Quotation</h3><p>Prices are given on quotation, based on items and quantities.</p></div><div class="step rv"><b>03</b><h3>Confirm Order</h3><p>Confirm items, packing and delivery details in writing.</p></div><div class="step rv"><b>04</b><h3>Production and QC</h3><p>Instruments are finished and checked against the order.</p></div><div class="step rv"><b>05</b><h3>Packing and Dispatch</h3><p>Export packing and dispatch arranged as confirmed.</p></div></div></div></section>
-<section style="background:var(--surface)"><div class="wrap"><div class="sec-head rv"><span class="eyebrow">Quality and Certifications</span><h2>Certified and Documented</h2></div><div class="grid3" data-cascade><div class="certcard rv"><div class="badge">ISO</div><h3>ISO 9001:2015</h3><p><b>Quality Management System</b></p><p>InterCert  -  Reg. IC-QM-2604191  -  Valid to 15 Apr 2027</p></div><div class="certcard rv"><div class="badge">ISO</div><h3>ISO 13485:2016</h3><p><b>Medical Devices Quality Management</b></p><p>InterCert  -  Reg. IC-MD-2604192  -  Valid to 15 Apr 2027</p></div><div class="certcard rv"><div class="badge">ISO</div><h3>CE Class I</h3><p><b>MDD 93/42 EEC Conformity</b></p><p>TechStandi  -  Cert. TCE/PK291/04921304  -  Valid to 12 Apr 2027</p></div></div>
+<section style="background:var(--surface)"><div class="wrap"><div class="sec-head rv"><span class="eyebrow">Quality and Certifications</span><h2>Certified and Documented</h2></div><div class="grid3" data-cascade><div class="certcard rv"><div class="badge">ISO</div><h3>ISO 9001:2015</h3><p><b>Quality Management System</b></p><p>InterCert <br> Reg. IC-QM-2604191 <br> Valid to 15 Apr 2027</p></div><div class="certcard rv"><div class="badge">ISO</div><h3>ISO 13485:2016</h3><p><b>Medical Devices Quality Management</b></p><p>InterCert <br> Reg. IC-MD-2604192 <br> Valid to 15 Apr 2027</p></div><div class="certcard rv"><div class="badge">ISO</div><h3>CE Class I</h3><p><b>MDD 93/42 EEC Conformity</b></p><p>TechStandi <br> Cert. TCE/PK291/04921304 <br> Valid to 12 Apr 2027</p></div></div>
 <div class="ctarow rv"><a class="btn" href="quality.html">View Quality Page</a><a class="btn ghost" href="contact.html">Request a Quote</a></div></div></section></main>
 <footer><div class="wrap"><div class="cols">
-<div><a class="logo" href="index.html"><img src="../assets/logo_white.png" alt="Mandiri Surgicals"></a>
+<div><a class="logo" href="index.html"><img src="../assets/logo_ms_white.png" alt="Mandiri Surgicals"><span class="logotitle">MANDIRI<small>SURGICALS</small></span></a>
 <p>Manufacturer and exporter of surgical instruments from Sialkot, Pakistan.</p>
 <div class="certstrip"><span>ISO 9001:2015</span><span>ISO 13485:2016</span><span>CE Class I</span></div></div>
 <div><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About Us</a><a href="products.html">Products</a><a href="quality.html">Quality</a><a href="contact.html">Contact</a></div>
