@@ -175,9 +175,36 @@ footer .base{border-top:1px solid rgba(130,150,170,.25);margin-top:30px;padding-
 .gallery .thumbs img{width:76px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.65;border:2px solid transparent}
 .gallery .thumbs img.sel{opacity:1;border-color:var(--accent)}
 .price-note{background:var(--chip);border-radius:var(--radius);padding:16px 18px;font-weight:700;margin:18px 0}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+#coForm{display:none;padding:18px 20px;border-top:1px solid rgba(130,150,170,.3)}
+#coForm.open{display:block;animation:pop .4s}
+#coForm h4{margin-bottom:4px}
+#coForm p{color:var(--muted);font-size:13px}
 @media(max-width:1020px){.grid5{grid-template-columns:repeat(3,1fr)}.why-grid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:820px){nav.main{display:none}#burger{display:flex}.hero-grid{grid-template-columns:1fr;padding:40px 0}.grid3,.grid2,.detail{grid-template-columns:1fr}footer .cols{grid-template-columns:1fr 1fr}.hd .btn{display:none}}
-@media(max-width:560px){.grid5{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}footer .cols{grid-template-columns:1fr}}
+@media(max-width:820px){nav.main{display:none}#burger{display:flex}
+.hero-grid{grid-template-columns:1fr;padding:34px 0 30px;gap:24px}
+.hero h1{font-size:clamp(27px,7.6vw,40px)}
+.hero p.lead{font-size:16px}
+.hero-panel{padding:22px}
+.full-photo .shade{padding:38px 0}
+section{padding:42px 0}
+.pagehead{padding:36px 0 4px}
+.grid3{grid-template-columns:repeat(2,1fr);gap:12px}
+.grid2,.detail{grid-template-columns:1fr}
+.card img{height:112px}
+.card .cb{padding:12px}
+.card h3{font-size:15.5px}
+.card p{font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hero .decor{display:none}
+.hd .btn{display:none}
+.gallery img.main{height:250px}
+footer .cols{grid-template-columns:1fr 1fr;gap:20px}
+footer .cols>div:first-child{grid-column:1/-1}
+footer .cols>div:last-child{grid-column:1/-1}}
+@media(max-width:560px){.grid5{grid-template-columns:repeat(2,1fr);gap:10px}.steps{grid-template-columns:1fr}
+.why-grid{grid-template-columns:repeat(2,1fr);gap:10px}.why{padding:15px}
+.certstrip span{font-size:12px;padding:7px 11px}
+.btnrow .btn{padding:8px 12px;font-size:13px}}
 </style></head><body>
 <div id="splash"><img src="../assets/logo_black.png" alt="Mandiri Surgicals"><div class="bar"><i></i></div><p>MANDIRI SURGICALS</p></div>
 <header><div class="wrap hd">
@@ -220,12 +247,20 @@ footer .base{border-top:1px solid rgba(130,150,170,.25);margin-top:30px;padding-
 <div><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About Us</a><a href="products.html">Products</a><a href="quality.html">Quality</a><a href="contact.html">Contact</a></div>
 <div><h4>Product Ranges</h4><a href="products.html">General Surgery</a><a href="products.html">Dental</a><a href="products.html">Liposuction</a><a href="products.html">Electro Surgical</a><a href="products.html">Plastic Surgery</a></div>
 <div><h4>Contact</h4><p>Malky Kalan Road, Rattian Syedan, Near Imambargah Qaser-e-Abbas, Sialkot, Pakistan</p><p>Phone: to be added on confirmation</p><p>Email: to be added on confirmation</p><p>Prices are given on quotation only.</p></div>
-</div><div class="base"><span>&copy; 2026 Mandiri Surgicals. All rights reserved.</span><span>Design 2 - Grey Corporate Complete - Demo by ABiz Global Services</span></div></div></footer>
+</div><div class="base"><span>&copy; 2026 Mandiri Surgicals. All rights reserved.</span><span>Design 2 - Grey Corporate Complete - Demo by BIMM Global Services</span></div></div></footer>
 <div id="dscrim"></div>
 <aside id="drawer"><div class="dh"><h3>Enquiry List</h3><button id="drawerClose" style="background:none;border:0;font-size:26px;cursor:pointer;color:var(--ink)">&times;</button></div>
 <div class="items" id="drawerItems"></div>
 <div class="df"><p>Send this list as an enquiry. You will receive a written quotation for these items.</p>
-<button class="btn" id="placeOrder" style="width:100%;justify-content:center">Place Enquiry Order</button></div></aside>
+<button class="btn" id="placeOrder" style="width:100%;justify-content:center">Place Enquiry Order</button></div>
+<form id="coForm"><h4>Your Details</h4><p>So we can send your quotation to the right place.</p>
+<label>Full Name *</label><input required placeholder="Your name">
+<label>Email Address *</label><input type="email" required placeholder="you@company.com">
+<label>Phone / WhatsApp</label><input placeholder="+92 ...">
+<label>Company</label><input placeholder="Company name">
+<label>Note (optional)</label><textarea rows="2" placeholder="Quantities, delivery city, any question"></textarea>
+<button class="btn" id="coSend" type="submit" style="width:100%;justify-content:center;margin-top:14px">Send Enquiry</button>
+<button type="button" id="coBack" style="width:100%;background:none;border:0;color:var(--muted);margin-top:8px;cursor:pointer;font:inherit;font-size:13.5px">&larr; Back to list</button></form></aside>
 <div id="toast"></div>
 <div id="successOv"><div class="box"><svg class="checkmark" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26"/><path d="M19 31l8 8 15-17"/></svg><h3>Enquiry Sent</h3>
 <p style="color:var(--muted);margin:10px 0 18px">Thank you. Your enquiry has been received. A written quotation will be shared for the selected items.</p>
@@ -284,11 +319,16 @@ $$('.add-btn').forEach(function(btn){btn.addEventListener('click',function(){
 var cartBtn=$('#cartBtn'); if(cartBtn){cartBtn.addEventListener('click',function(){document.body.classList.add('cartopen')})}
 var dscrim=$('#dscrim'); if(dscrim){dscrim.addEventListener('click',function(){document.body.classList.remove('cartopen')})}
 var dclose=$('#drawerClose'); if(dclose){dclose.addEventListener('click',function(){document.body.classList.remove('cartopen')})}
-var orderBtn=$('#placeOrder'); if(orderBtn){orderBtn.addEventListener('click',function(){
+var orderBtn=$('#placeOrder'); var coForm=$('#coForm');
+if(orderBtn){orderBtn.addEventListener('click',function(){
  if(!cart.length){toast('Your enquiry list is empty'); return}
- orderBtn.classList.add('loading'); orderBtn.textContent='Sending enquiry...';
- setTimeout(function(){orderBtn.classList.remove('loading'); orderBtn.textContent='Place Enquiry Order';
+ orderBtn.closest('.df').style.display='none'; if(coForm){coForm.classList.add('open'); coForm.scrollIntoView({behavior:'smooth',block:'end'})} });}
+var coBack=$('#coBack'); if(coBack){coBack.addEventListener('click',function(){ if(coForm){coForm.classList.remove('open')} if(orderBtn){orderBtn.closest('.df').style.display=''} });}
+if(coForm){coForm.addEventListener('submit',function(e){e.preventDefault();
+ var sendBtn=$('#coSend'); if(sendBtn){sendBtn.classList.add('loading'); sendBtn.textContent='Sending enquiry...'}
+ setTimeout(function(){ if(sendBtn){sendBtn.classList.remove('loading'); sendBtn.textContent='Send Enquiry'}
   document.body.classList.remove('cartopen'); cart=[]; save(); render();
+  coForm.classList.remove('open'); if(orderBtn){orderBtn.closest('.df').style.display=''} coForm.reset();
   var ov=$('#successOv'); if(ov){ov.classList.add('show')} },1300); });}
 var okBtn=$('#successClose'); if(okBtn){okBtn.addEventListener('click',function(){$('#successOv').classList.remove('show')})}
 /* forms: contact + quote */
