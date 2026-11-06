@@ -6,7 +6,15 @@
 <style>
 :root{--bg:#10151b;--surface:#171e26;--ink:#eef3f7;--muted:#9db0c0;--accent:#37b6e8;--accent2:#37b6e82;--header:#0b0f14;--radius:14px;--chip:#1b2632}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden}
+.grid5>*,.grid3>*,.grid2>*,.why-grid>*,.steps>*,footer .cols>*{min-width:0}
+h1,h2,h3,h4,p,td,a,span{overflow-wrap:break-word}
+table.spec td{overflow-wrap:anywhere}
+.ctarow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.gallery img.main{transition:transform .3s ease,opacity .3s ease}
+.gallery img.main.gout{transform:translateX(-36px);opacity:0}
+.gallery img.main.gin{animation:gin .35s ease}
+@keyframes gin{from{transform:translateX(36px);opacity:0}}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -32,7 +40,10 @@ h1,h2,h3{font-family:'Inter',sans-serif;line-height:1.15;font-weight:800;letter-
 /* header */
 header{position:sticky;top:0;z-index:60;background:var(--header);border-bottom:1px solid rgba(130,150,170,.25)}
 .hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-.logo img{height:46px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo img{height:36px;width:auto}
+.logotitle{font-weight:800;letter-spacing:.13em;font-size:15px;line-height:1.2;color:var(--ink);white-space:nowrap}
+.logotitle small{display:block;font-size:10px;letter-spacing:.32em;color:var(--muted);font-weight:700}
 
 nav.main{display:flex;gap:26px;font-weight:600;font-size:15px}
 nav.main a{position:relative;padding:4px 0}
@@ -55,7 +66,7 @@ body.navopen #burger span:nth-child(3){transform:translateY(-7.5px) rotate(-45de
 body.navopen #scrim{opacity:1;visibility:visible}
 #sidebar{position:fixed;top:0;left:0;height:100dvh;width:min(320px,84vw);background:var(--surface);z-index:80;transform:translateX(-105%);transition:transform .5s cubic-bezier(.7,0,.2,1);padding:22px;display:flex;flex-direction:column;gap:6px;box-shadow:20px 0 50px rgba(0,0,0,.25)}
 body.navopen #sidebar{transform:translateX(0)}
-#sidebar .logo img{height:44px}
+#sidebar .logo img{height:32px}
 #sidebar a{padding:13px 10px;font-weight:700;font-size:17px;border-bottom:1px solid rgba(130,150,170,.2);display:flex;justify-content:space-between;align-items:center}
 #sidebar a small{color:var(--accent);font-weight:800}
 /* hero */
@@ -130,12 +141,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);border-c
 .btn.loading::before{content:"";width:16px;height:16px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 /* cart drawer */
-#drawer{position:fixed;top:0;right:0;height:100dvh;width:min(400px,92vw);background:var(--surface);z-index:90;transform:translateX(105%);transition:transform .5s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column;box-shadow:-20px 0 50px rgba(0,0,0,.25)}
+#drawer{position:fixed;top:0;right:0;height:100dvh;width:min(400px,92vw);background:var(--surface);z-index:90;transform:translateX(105%);transition:transform .5s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column;overflow-y:auto;box-shadow:-20px 0 50px rgba(0,0,0,.25)}
 body.cartopen #drawer{transform:translateX(0)}
 #dscrim{position:fixed;inset:0;background:rgba(5,12,20,.5);opacity:0;visibility:hidden;transition:.4s;z-index:85}
 body.cartopen #dscrim{opacity:1;visibility:visible}
-#drawer .dh{padding:20px;border-bottom:1px solid rgba(130,150,170,.3);display:flex;justify-content:space-between;align-items:center}
-#drawer .items{flex:1;overflow:auto;padding:14px 20px;display:flex;flex-direction:column;gap:12px}
+#drawer .dh{padding:20px;border-bottom:1px solid rgba(130,150,170,.3);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--surface);z-index:3}
+#drawer .items{flex:0 1 auto;overflow:visible;padding:14px 20px;display:flex;flex-direction:column;gap:12px}
 .citem{display:flex;gap:12px;align-items:center;background:var(--bg);border-radius:12px;padding:10px}
 .citem img{width:52px;height:52px;object-fit:cover;border-radius:8px}
 .citem h4{font-size:14px}
@@ -158,12 +169,18 @@ footer{background:var(--header);border-top:1px solid rgba(130,150,170,.25);paddi
 footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:26px}
 footer h4{margin-bottom:12px;font-size:15px}
 footer a,footer p{color:var(--muted);font-size:14px;display:block;margin-bottom:7px}
-footer .logo img{height:44px;margin-bottom:12px}
+footer .logo{margin-bottom:12px}
+footer .logo img{height:36px}
 footer .base{border-top:1px solid rgba(130,150,170,.25);margin-top:30px;padding-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 /* reveal (hide-first per explicit order; js class gates hiding, failsafe reveals all) */
 .js .rv{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.6,.2,1)}
 .js .rv.in{opacity:1;transform:none}
-.pagehead{padding:52px 0 8px}
+.pagehead{padding:52px 20px 8px}
+.grid3,.grid5{align-items:start}
+.certcard b{display:block;font-size:14.5px;line-height:1.35;margin:2px 0 6px}
+.certcard p{line-height:1.55}
+.hero-photo img{width:100%;height:340px;object-fit:cover;display:block}
+.hero-below{padding:30px 20px 44px}
 .pagehead h1{font-size:clamp(30px,4vw,44px);margin:12px 0 10px}
 .pagehead p{color:var(--muted);max-width:640px}
 .prod{display:flex;flex-direction:column}
@@ -188,7 +205,9 @@ footer .base{border-top:1px solid rgba(130,150,170,.25);margin-top:30px;padding-
 .hero-panel{padding:22px}
 .full-photo .shade{padding:38px 0}
 section{padding:42px 0}
-.pagehead{padding:36px 0 4px}
+.pagehead{padding:36px 20px 4px}
+.hero-photo img{height:230px}
+.hero-below{padding:24px 20px 36px}
 .grid3{grid-template-columns:repeat(2,1fr);gap:12px}
 .grid2,.detail{grid-template-columns:1fr}
 .card img{height:112px}
@@ -204,18 +223,25 @@ footer .cols>div:last-child{grid-column:1/-1}}
 @media(max-width:560px){.grid5{grid-template-columns:repeat(2,1fr);gap:10px}.steps{grid-template-columns:1fr}
 .why-grid{grid-template-columns:repeat(2,1fr);gap:10px}.why{padding:15px}
 .certstrip span{font-size:12px;padding:7px 11px}
-.btnrow .btn{padding:8px 12px;font-size:13px}}
+.btnrow{gap:10px}
+.btnrow .btn{padding:8px 12px;font-size:13px}
+.certcard{padding:18px}
+.certcard h3{font-size:16px}
+.certcard b{font-size:13.5px}
+.certcard p{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;font-size:12.5px}
+.why p{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.ctarow .btn{flex:1 1 200px;justify-content:center;max-width:320px}}
 </style></head><body>
-<div id="splash"><img src="../assets/logo_white.png" alt="Mandiri Surgicals"><div class="bar"><i></i></div><p>MANDIRI SURGICALS</p></div>
+<div id="splash"><img src="../assets/logo_ms_white.png" alt="Mandiri Surgicals" style="height:56px;width:auto"><div class="bar"><i></i></div><p>MANDIRI SURGICALS</p></div>
 <header><div class="wrap hd">
-<a class="logo" href="index.html"><img src="../assets/logo_white.png" alt="Mandiri Surgicals"></a>
+<a class="logo" href="index.html"><img src="../assets/logo_ms_white.png" alt="Mandiri Surgicals"><span class="logotitle">MANDIRI<small>SURGICALS</small></span></a>
 <nav class="main"><a href="index.html" class="">Home</a><a href="about.html" class="">About Us</a><a href="products.html" class="">Products</a><a href="quality.html" class="">Quality</a><a href="contact.html" class="act">Contact</a></nav>
 <div class="hd-right"><a class="btn small" href="contact.html">Request a Quote</a>
 <button id="cartBtn" aria-label="Enquiry list"><svg viewBox="0 0 24 24"><path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM7.2 14.6l.1.1h9.9a2 2 0 0 0 2-1.7L21 6H6.2L5.3 3.6A1 1 0 0 0 4.4 3H2v2h1.7l3.5 9.6zM8 8h11l-1.1 4.6H8.6L8 8z"/></svg><span id="cartCount">0</span></button>
 <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button></div>
 </div></header>
 <div id="scrim"></div>
-<aside id="sidebar"><a class="logo" href="index.html" style="border:0;padding:0 10px 14px"><img src="../assets/logo_black.png" alt="Mandiri Surgicals"></a><a href="index.html">Home<small>01</small></a><a href="about.html">About Us<small>02</small></a><a href="products.html">Products<small>03</small></a><a href="quality.html">Quality<small>04</small></a><a href="contact.html">Contact<small>05</small></a>
+<aside id="sidebar"><a class="logo" href="index.html" style="border:0;padding:0 10px 14px"><img src="../assets/logo_ms_white.png" alt="Mandiri Surgicals"><span class="logotitle">MANDIRI<small>SURGICALS</small></span></a><a href="index.html">Home<small>01</small></a><a href="about.html">About Us<small>02</small></a><a href="products.html">Products<small>03</small></a><a href="quality.html">Quality<small>04</small></a><a href="contact.html">Contact<small>05</small></a>
 <a href="contact.html" style="color:var(--accent)">Request a Quote<small>&rarr;</small></a>
 <p style="color:var(--muted);font-size:13px;padding:14px 10px">Malky Kalan Road, Rattian Syedan, Near Imambargah Qaser-e-Abbas, Sialkot, Pakistan</p></aside>
 <main><div class="wrap pagehead rv"><span class="eyebrow">Contact</span><h1>Request a Quote</h1>
@@ -241,7 +267,7 @@ footer .cols>div:last-child{grid-column:1/-1}}
 <div class="hero-img" style="margin-top:20px"><img src="../assets/port.jpg" alt="Export shipping" style="min-height:210px"></div></div>
 </div></div></section></main>
 <footer><div class="wrap"><div class="cols">
-<div><a class="logo" href="index.html"><img src="../assets/logo_white.png" alt="Mandiri Surgicals"></a>
+<div><a class="logo" href="index.html"><img src="../assets/logo_ms_white.png" alt="Mandiri Surgicals"><span class="logotitle">MANDIRI<small>SURGICALS</small></span></a>
 <p>Manufacturer and exporter of surgical instruments from Sialkot, Pakistan.</p>
 <div class="certstrip"><span>ISO 9001:2015</span><span>ISO 13485:2016</span><span>CE Class I</span></div></div>
 <div><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About Us</a><a href="products.html">Products</a><a href="quality.html">Quality</a><a href="contact.html">Contact</a></div>
@@ -337,8 +363,16 @@ $$('form.anim-form').forEach(function(f){f.addEventListener('submit',function(e)
  setTimeout(function(){ if(btn){btn.classList.remove('loading'); btn.textContent='Send'}
   var ok=$('.form-ok',f); if(ok){ $$('.fields',f).forEach(function(x){x.style.display='none'}); ok.classList.add('show'); }
   toast('Message sent. Thank you.'); },1200); })});
-/* gallery */
-var main=$('#galMain'); $$('.thumbs img').forEach(function(t){t.addEventListener('click',function(){ if(main){main.src=t.src} $$('.thumbs img').forEach(function(x){x.classList.remove('sel')}); t.classList.add('sel') })});
+/* gallery: slide switch + swipe */
+var main=$('#galMain'); var thumbs=$$('.thumbs img'); var curIdx=0;
+function goTo(i){ if(!main||!thumbs.length)return; i=(i+thumbs.length)%thumbs.length; if(i===curIdx&&main.src===thumbs[i].src)return; curIdx=i;
+ var t=thumbs[i]; main.classList.add('gout');
+ setTimeout(function(){ main.src=t.src; main.classList.remove('gout'); main.classList.add('gin');
+  setTimeout(function(){main.classList.remove('gin')},360); },250);
+ thumbs.forEach(function(x){x.classList.remove('sel')}); t.classList.add('sel'); }
+thumbs.forEach(function(t,i){t.addEventListener('click',function(){goTo(i)})});
+if(main){ var sx=0; main.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX},{passive:true});
+ main.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>42){ goTo(curIdx+(dx<0?1:-1)) } },{passive:true}); }
 render();
 })();
 </script>
